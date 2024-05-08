@@ -24,24 +24,30 @@ void insertEnd(Node**, int);
 void displayList(Node*);
 void deleteNode(Node**, Node*);
 Node* geradorListaAleatoria(int, int);
+Node* searchNodebyValue(Node**, int);
 
 void swapValue(int&, int&);
 void bubbleSort(Node*, int);
 void optimizedBubbleSort(Node*, int);
+
+void selectionSort(Node*);
+void optimizedSelectionSort(Node*);
 
 int main()
 {
     // gerando lista aleatório com 10 nós e seed 1
     Node* head = geradorListaAleatoria(10, 1);
     displayList(head);
-    bubbleSort(head, 10);
+    //bubbleSort(head, 10);
+    selectionSort(head);
     displayList(head);
     cout << "========================================================================" << endl;
 
     // gerando a mesma lista novamente, com a mesma semente
     Node* head2 = geradorListaAleatoria(10, 1);
     displayList(head2);
-    optimizedBubbleSort(head2, 10);
+    //optimizedBubbleSort(head2, 10);
+    optimizedSelectionSort(head2);
     displayList(head2);
     cout << "========================================================================" << endl;
     
@@ -51,10 +57,12 @@ int main()
     //Node* head3 = geradorListaAleatoria(100000, 13);
     Node* head3 = geradorListaAleatoria(100000, 632);
     auto timeStart = high_resolution_clock::now();
-    bubbleSort(head3, 100000);
+    //bubbleSort(head3, 100000);
+    selectionSort(head3);
     auto timeStop = high_resolution_clock::now();
     auto timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-    cout << "Tempo utilizado bubbleSort: " << timeDuration.count() << " nano_segundos." << endl;
+    //cout << "Tempo utilizado bubbleSort: " << timeDuration.count() << " nano_segundos." << endl;
+    cout << "Tempo utilizado selectionSort: " << timeDuration.count() << " nano_segundos." << endl;
     cout << "=======================================================================" << endl;
     
     //gera as mesmas listas que acima
@@ -63,10 +71,12 @@ int main()
     //Node* head4 = geradorListaAleatoria(100000, 13);
     Node* head4 = geradorListaAleatoria(100000, 632);
     timeStart = high_resolution_clock::now();
-    optimizedBubbleSort(head4,100000);
+    //optimizedBubbleSort(head4,100000);
+    optimizedSelectionSort(head4);
     timeStop = high_resolution_clock::now();
     timeDuration = duration_cast<nanoseconds>(timeStop - timeStart);
-    cout << "Tempo utilizado optimizedBubbleSort: " << timeDuration.count() << " nano_segundos." << endl;
+    //cout << "Tempo utilizado optimizedBubbleSort: " << timeDuration.count() << " nano_segundos." << endl;
+    cout << "Tempo utilizado optimizedSelectionSort: " << timeDuration.count() << " nano_segundos." << endl;
     cout << "=======================================================================" << endl;
     
     return 0;
@@ -151,6 +161,27 @@ Node* geradorListaAleatoria(int iTam, int iSeed)
     return head;
 }
 
+Node* searchNodebyValue(Node** head, int iValue)
+{
+    // Verifica se a fila é vazia
+    if (*head == nullptr)
+    {
+        cout << "Fila vazia, não foi possível achar o nó." << endl;
+        return nullptr;
+    }
+    // Percorre a lista até encontrar o nó procurado ou chegar ao fim da fila
+    Node* current = *head;
+    while (current != nullptr && current->iPayload != iValue) current = current->ptrNext;
+    // Verifica se não achou o nó na fila
+    if (current == nullptr)
+    {
+        cout << "Não foi possível achar o nó de valor " << iValue << "." << endl;
+        return nullptr;
+    }
+    // Se já foi encontrado apenas o retorna
+    return current;
+}
+
 void swapValue(Node* no1, Node* no2)
 {
     //verifica se os nós fornecidos não são nulos e faz a troca
@@ -228,5 +259,69 @@ void optimizedBubbleSort(Node* node, int iTam)
         tempNode = node;
         //se a lista tiver ordenada, já sai da função
         if(bUnordered == false) break;
+    }
+}
+
+void selectionSort(Node* firstNode)
+{
+    //verifica se o nó fornecido é o primeiro
+    if(firstNode->ptrPrevious != nullptr)
+    {
+        cout << "Meio ou fim da Lista: Não é possível realizar selectionSort" << endl;
+        return;
+    }
+    
+    //cria um nó temporário
+    Node* tempNode = firstNode;
+    //percorre a lista até o último nó
+    while (tempNode->ptrNext != nullptr)
+    {
+        //cria um novo nó para percorrer a lista
+        Node* currentNode = tempNode->ptrNext;
+        while (currentNode != nullptr)
+        {
+            if (tempNode->iPayload > currentNode->iPayload)
+            {
+                swapValue(tempNode, currentNode);
+            }
+            //atualiza o nó que percorre a lista
+            currentNode = currentNode->ptrNext;
+        }
+        //atualiza o nó do loop de fora
+        tempNode = tempNode->ptrNext;
+    }
+}
+
+void optimizedSelectionSort(Node* firstNode)
+{
+    //verifica se o nó fornecido é o primeiro
+    if(firstNode->ptrPrevious != nullptr)
+    {
+        cout << "Meio ou fim da Lista: Não é possível realizar optimazedSelectionSort" << endl;
+        return;
+    }
+    
+    //cria um nó temporário
+    Node* tempNode = firstNode;
+    //percorre a lista até o último nó
+    while (tempNode->ptrNext != nullptr)
+    {
+        //inicializa o nó que vai trocar
+        Node* swapNode = tempNode;
+        //cria um novo nó para percorrer a lista
+        Node* currentNode = tempNode->ptrNext;
+        while (currentNode != nullptr)
+        {
+            if (swapNode->iPayload > currentNode->iPayload)
+            {
+                //atualiza o nó que vai trocar para ser o menor
+                swapNode = currentNode;
+            }
+            //atualiza o nó que percorre a lista
+            currentNode = currentNode->ptrNext;
+        }
+        swapValue(tempNode, swapNode);
+        //atualiza o nó do loop de fora
+        tempNode = tempNode->ptrNext;
     }
 }
