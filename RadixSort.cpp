@@ -241,7 +241,7 @@ void radixSort(Node** head)
             }
         }
 
-        // Exibe a ordenação por passos, caso não queira basta tornar as linhas 244 a 246 comentários.
+        // Exibe a ordenação por passos, caso não queira basta tornar as linhas 245 a 247 comentários.
         cout << "Ordenando: ";
         displayList(output);
         cout << "-------------------------------------------------------" << endl;
