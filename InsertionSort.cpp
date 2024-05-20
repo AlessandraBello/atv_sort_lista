@@ -118,7 +118,7 @@ void deleteNode(Node** head, Node* ptrDelete)
 Node* geradorListaAleatoria(int iTam, int iSeed)
 {
     mt19937 gen(iSeed);
-    std::uniform_int_distribution<> dis(0, 100000);
+    std::uniform_int_distribution<> dis(0, 100);
     
     Node* head = nullptr;
     int iContador = 0;
