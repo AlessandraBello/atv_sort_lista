@@ -1,0 +1,77 @@
+#include "DoublyLinkedList.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
+using std::string;
+
+template <typename T>
+void bubbleSort(Node<T>* node, int iTam)
+{
+    //cria um nó temporário
+    Node<T>* tempNode = node;
+    //verifica se o nó fornecido é o primeiro
+    if(tempNode->ptrPrevious != nullptr)
+    {
+        cout << "Meio ou fim da Lista: Não é possível realizar bubbleSort" << endl;
+        return;
+    }
+    
+    //percorre a lista (iTam - 1) vezes
+    for (int iOuterLoop = 0; iOuterLoop < (iTam - 1); iOuterLoop++)
+    {
+        //percorre a lista até o penultimo elemento
+        for (int iInnerLoop = 0; iInnerLoop < (iTam - 1); iInnerLoop++)
+        {
+            //verifica o maior valor e faz a troca, se necessário
+            if(tempNode->iPayload > tempNode->ptrNext->iPayload)
+            {
+                swapValue(tempNode, tempNode->ptrNext);
+            }
+            //atualiza o tempNode
+            tempNode = tempNode->ptrNext;
+        }
+        //volta para o inicio da lista
+        tempNode = node;
+    }
+}
+
+template <typename T>
+void optimizedBubbleSort(Node<T>* node, int iTam)
+{
+    //cria um nó temporário
+    Node<T>* tempNode = node;
+    //verifica se o nó fornecido é o primeiro
+    if(node->ptrPrevious != nullptr)
+    {
+        cout << "Meio ou fim da Lista: Não é possível realizar bubbleSort" << endl;
+        return;
+    }
+    
+    //inicializa um booleano para ver se a lista esta desordenada
+    bool bUnordered = false;
+    
+    //percorre a lista (iTam - 1) vezes
+    for (int iOuterLoop = 0; iOuterLoop < (iTam - 1); iOuterLoop++)
+    {
+        //diz que a lista esta desordenada
+        bUnordered = false;
+        //percorre a lista até o (penultimo - i) elemento
+        for (int iInnerLoop = 0; iInnerLoop < (iTam - 1 - iOuterLoop); iInnerLoop++)
+        {
+            //verifica o maior valor e faz a troca, se necessário
+            if(tempNode->iPayload > tempNode->ptrNext->iPayload)
+            {
+                swapValue(tempNode, tempNode->ptrNext);
+                //atualizando o booleano
+                bUnordered = true;
+            }
+            //atualiza o tempNode
+            tempNode = tempNode->ptrNext;
+        }
+        //volta para o inicio da lista
+        tempNode = node;
+        //se a lista tiver ordenada, já sai da função
+        if(bUnordered == false) break;
+    }
+}

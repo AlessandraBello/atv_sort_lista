@@ -1,0 +1,39 @@
+#include "DoublyLinkedList.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
+using std::string;
+
+template <typename T>
+void insertionSort(Node<T>* head, int iTam)
+{
+    //verifica se o nó fornecido é o primeiro da lista
+    if(head->ptrPrevious != nullptr)
+    {
+        cout << "Meio ou fim da Lista: Não é possível realizar insertionSort" << endl;
+        return;
+    }
+    
+    // cria um nó vai percorrer a lista, começando no segundo
+    Node<T>* current = head->ptrNext;
+    
+    for (int iOuterLoop = 1; iOuterLoop < iTam; iOuterLoop++)
+    {
+        //cria um nó para fazer o loop interno
+        Node<T>* innerLoop = current;
+        while (innerLoop->ptrPrevious != nullptr && innerLoop->iPayload < innerLoop->ptrPrevious->iPayload)
+        {
+            // guarda o maior valor
+            int iValue = innerLoop->ptrPrevious->iPayload;
+            // muda o menor valor de lugar
+            innerLoop->ptrPrevious->iPayload = innerLoop->iPayload;
+            // coloca o maior valor na maior posiçao
+            innerLoop->iPayload = iValue;
+            // atualiza o loop interno
+            innerLoop = innerLoop->ptrPrevious;
+        }
+        // atualiza o current
+        current= current->ptrNext;
+    }
+}

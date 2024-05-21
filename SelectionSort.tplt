@@ -1,0 +1,72 @@
+#include "DoublyLinkedList.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
+using std::string;
+
+template <typename T>
+void selectionSort(Node<T>* firstNode)
+{
+    //verifica se o nó fornecido é o primeiro
+    if(firstNode->ptrPrevious != nullptr)
+    {
+        cout << "Meio ou fim da Lista: Não é possível realizar selectionSort" << endl;
+        return;
+    }
+    
+    //cria um nó temporário
+    Node<T>* tempNode = firstNode;
+    //percorre a lista até o último nó
+    while (tempNode->ptrNext != nullptr)
+    {
+        //cria um novo nó para percorrer a lista
+        Node<T>* currentNode = tempNode->ptrNext;
+        while (currentNode != nullptr)
+        {
+            if (tempNode->iPayload > currentNode->iPayload)
+            {
+                swapValue(tempNode, currentNode);
+            }
+            //atualiza o nó que percorre a lista
+            currentNode = currentNode->ptrNext;
+        }
+        //atualiza o nó do loop de fora
+        tempNode = tempNode->ptrNext;
+    }
+}
+
+template <typename T>
+void optimizedSelectionSort(Node<T>* firstNode)
+{
+    //verifica se o nó fornecido é o primeiro
+    if(firstNode->ptrPrevious != nullptr)
+    {
+        cout << "Meio ou fim da Lista: Não é possível realizar optimazedSelectionSort" << endl;
+        return;
+    }
+    
+    //cria um nó temporário
+    Node<T>* tempNode = firstNode;
+    //percorre a lista até o último nó
+    while (tempNode->ptrNext != nullptr)
+    {
+        //inicializa o nó que vai trocar
+        Node<T>* swapNode = tempNode;
+        //cria um novo nó para percorrer a lista
+        Node<T>* currentNode = tempNode->ptrNext;
+        while (currentNode != nullptr)
+        {
+            if (swapNode->iPayload > currentNode->iPayload)
+            {
+                //atualiza o nó que vai trocar para ser o menor
+                swapNode = currentNode;
+            }
+            //atualiza o nó que percorre a lista
+            currentNode = currentNode->ptrNext;
+        }
+        swapValue(tempNode, swapNode);
+        //atualiza o nó do loop de fora
+        tempNode = tempNode->ptrNext;
+    }
+}

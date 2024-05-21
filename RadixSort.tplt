@@ -1,0 +1,78 @@
+#include "DoublyLinkedList.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
+using std::string;
+
+
+template <typename T>
+void radixSort(Node<T>** head) 
+{
+    // Se head é nulo, impossível ordenar
+    if (*head == nullptr) return;
+    
+    // Calculamos o valor máximo de dígitos dos números da lista
+    auto getMax = [](Node<T>* head) -> int 
+    {
+        int iMax = head->iPayload;
+        while (head->ptrNext != nullptr) 
+        {
+            if (head->iPayload > iMax)
+                iMax = head->iPayload;
+            head = head->ptrNext;
+        }
+        return iMax;
+    };
+    
+    // Guardamos o valor da quantidade de dígitos
+    int iMax = getMax(*head);
+    
+    // Vamos ordenar
+    for (int exp = 1; iMax / exp > 0; exp *= 10)
+    {
+        Node<T>* output = nullptr;
+        Node<T>* temp = *head;
+        int count[10] = {0};
+
+        // Contando as ocorrências dos dígitos
+        while (temp->ptrNext != nullptr) 
+        {
+            count[(temp->iPayload / exp) % 10]++;
+            temp = temp->ptrNext;
+        }
+
+
+        // Alterando "count[i]"" para que ele contenha as posições finais dos dígitos
+        for (int i = 1; i < 10; i++)
+            count[i] += count[i - 1];
+
+        // Aqui estamos ordenando a lista de fato
+        for (int i = 0; i < 10; i++) 
+        {
+            Node<T>* temp = *head;
+            while (temp != nullptr) 
+            {
+                if ((temp->iPayload / exp) % 10 == i) 
+                {
+                    if (output == nullptr) 
+                    {
+                        Node<T>* newNode = createNode(temp->iPayload);
+                        output = newNode;
+                    } 
+                    else 
+                    {
+                        insertEnd(&output, temp->iPayload);
+                    }
+                }
+                temp = temp->ptrNext;
+            }
+        }
+
+        // Exibe a ordenação por passos, caso não queira basta tornar as linhas 245 a 247 comentários.
+        cout << "Ordenando: ";
+        displayList(output);
+        cout << "-------------------------------------------------------" << endl;
+        *head = output;
+    }
+}

@@ -1,0 +1,126 @@
+#include <iostream>
+#include <random>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+using std::mt19937;
+
+template <typename T>
+Node<T>* createNode(T iPayload)
+{
+    Node<T> * temp = (Node<T>*) malloc(sizeof(Node<T>));
+    temp->iPayload = iPayload;
+    temp->ptrNext = nullptr;
+    temp->ptrPrevious = nullptr;
+    
+    return temp;
+}
+
+template <typename T>
+void displayList(Node<T>* node)
+{
+    if(node == nullptr)
+    {
+        cout << "Lista Vazia: Não é possível realizar displayList" << endl; 
+        return;
+    }
+    if(node->ptrPrevious != nullptr)
+    {
+        cout << "Meio ou fim da Lista: Não é possível realizar displayList" << endl;
+        return;
+    }
+    
+    Node<T>* temp = node;
+    cout << "Payload: ";
+    while (temp != nullptr)
+    {
+        cout << temp->iPayload << " ";
+        temp = temp->ptrNext;
+    }
+    cout << endl;
+}
+
+template <typename T>
+void insertEnd(Node<T>** head, T iPayload)
+{
+    Node<T>* newNode = createNode(iPayload);
+    
+    if(*head == nullptr)
+    {
+        (*head) = newNode;
+        return;
+    }
+    
+    Node<T>* temp = (*head);
+    while(temp->ptrNext != nullptr) temp = temp->ptrNext;
+    newNode->ptrPrevious = temp; 
+    temp->ptrNext = newNode; 
+}
+
+template <typename T>
+void deleteNode(Node<T>** head, Node<T>* ptrDelete)
+{
+    if (*head == nullptr || ptrDelete == nullptr)
+    {
+        cout << "Não foi possível remover." << endl;
+        return;
+    }
+    if(*head == ptrDelete) (*head) = ptrDelete->ptrNext;
+    if(ptrDelete->ptrNext != nullptr) ptrDelete->ptrNext->ptrPrevious = ptrDelete->ptrPrevious;
+    if(ptrDelete->ptrPrevious != nullptr) ptrDelete->ptrPrevious->ptrNext = ptrDelete->ptrNext;
+
+    free(ptrDelete);
+}
+
+template <typename T>
+Node<T>* geradorListaAleatoria(int iTam, int iSeed)
+{
+    mt19937 gen(iSeed);
+    std::uniform_int_distribution<> dis(0, 100);
+    
+    Node<T>* head = nullptr;
+    int iContador = 0;
+    while(iContador<iTam)
+    {
+        int random_num = dis(gen);
+        insertEnd(&head, random_num);
+        iContador++;
+    }
+    return head;
+}
+
+template <typename T>
+Node<T>* searchNodebyValue(Node<T>** head, T iValue)
+{
+    // Verifica se a fila é vazia
+    if (*head == nullptr)
+    {
+        cout << "Fila vazia, não foi possível achar o nó." << endl;
+        return nullptr;
+    }
+    // Percorre a lista até encontrar o nó procurado ou chegar ao fim da fila
+    Node<T>* current = *head;
+    while (current != nullptr && current->iPayload != iValue) current = current->ptrNext;
+    // Verifica se não achou o nó na fila
+    if (current == nullptr)
+    {
+        cout << "Não foi possível achar o nó de valor " << iValue << "." << endl;
+        return nullptr;
+    }
+    // Se já foi encontrado apenas o retorna
+    return current;
+}
+
+template <typename T>
+void swapValue(Node<T>* no1, Node<T>* no2)
+{
+    //verifica se os nós fornecidos não são nulos e faz a troca
+    if (no1 != nullptr && no2 != nullptr)
+    {
+        int iTemp = no1->iPayload;
+        no1->iPayload = no2->iPayload;
+        no2->iPayload = iTemp;
+    }
+}
