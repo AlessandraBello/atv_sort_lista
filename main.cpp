@@ -5,6 +5,7 @@
 #include "RadixSort.h"
 #include "Arvore.h"
 #include "BuscaDFS.h"
+#include "BuscaBFS.h"
 
 #include <iostream>
 #include <chrono>
@@ -16,7 +17,7 @@ int main()
     int arriTemposBubble[100] = {0};
     for (int i = 0;i<100;i++)
     {
-        Node<int>* head = geradorListaAleatoria(10000, i);
+        Node<int>* head = geradorListaAleatoria<int>(10000, i);
         auto timeStart = chrono::high_resolution_clock::now();
         bubbleSort(head, 10000);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -34,7 +35,7 @@ int main()
     int arriTemposBubbleOtimizado[100] = {0};
     for (int i = 0;i<100;i++)
     {
-        Node<int>* head = geradorListaAleatoria(10000, i);
+        Node<int>* head = geradorListaAleatoria<int>(10000, i);
         auto timeStart = chrono::high_resolution_clock::now();
         optimizedBubbleSort(head, 10000);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -52,7 +53,7 @@ int main()
     int arriTemposSelection[100] = {0};
     for (int i = 0;i<100;i++)
     {
-        Node<int>* head = geradorListaAleatoria(10000, i);
+        Node<int>* head = geradorListaAleatoria<int>(10000, i);
         auto timeStart = chrono::high_resolution_clock::now();
         selectionSort(head);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -70,7 +71,7 @@ int main()
     int arriTemposSelectionOtimizado[100] = {0};
     for (int i = 0;i<100;i++)
     {
-        Node<int>* head = geradorListaAleatoria(10000, i);
+        Node<int>* head = geradorListaAleatoria<int>(10000, i);
         auto timeStart = chrono::high_resolution_clock::now();
         optimizedSelectionSort(head);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -89,7 +90,7 @@ int main()
     int arriTemposInsertion[100] = {0};
     for (int i = 0;i<100;i++)
     {
-        Node<int>* head = geradorListaAleatoria(10000, i);
+        Node<int>* head = geradorListaAleatoria<int>(10000, i);
         auto timeStart = chrono::high_resolution_clock::now();
         insertionSort(head, 10000);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -107,7 +108,7 @@ int main()
     int arriTemposRadix[100] = {0};
     for (int i = 0;i<100;i++)
     {
-        Node<int>* head = geradorListaAleatoria(10000, i);
+        Node<int>* head = geradorListaAleatoria<int>(10000, i);
         auto timeStart = chrono::high_resolution_clock::now();
         radixSort(&head);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -125,7 +126,7 @@ int main()
     int arriTemposBuscaDFS[100] = {0};
     for (int i = 0;i<100;i++)
     {
-        Node<int>* root = geradorArvoreAleatoria(10000, i);
+        NodeArvore<int>* root = geradorArvoreAleatoria<int>(10000, i);
         auto timeStart = chrono::high_resolution_clock::now();
         searchNode(root, i);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -143,7 +144,7 @@ int main()
     int arriTemposBuscaBFS[100] = {0};
     for (int i = 0;i<100;i++)
     {
-        Node<int>* root = geradorArvoreAleatoria(10000, i);
+        NodeArvore<int>* root = geradorArvoreAleatoria<int>(10000, i);
         auto timeStart = chrono::high_resolution_clock::now();
         bfs(root, i);
         auto timeStop = chrono::high_resolution_clock::now();

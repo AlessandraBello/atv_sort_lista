@@ -15,7 +15,7 @@ List<T>* initializeList()
 }
 
 template <typename T>
-ListNode<T>* createListNode(Node<T>* data)
+ListNode<T>* createListNode(NodeArvore<T>* data)
 {
     ListNode<T>* temp = (ListNode<T>*) malloc(sizeof(ListNode<T>));
     temp->iPayload = data;
@@ -25,7 +25,7 @@ ListNode<T>* createListNode(Node<T>* data)
 }
 
 template <typename T>
-void addElement(List<T>* list, Node<T>* node) 
+void addElement(List<T>* list, NodeArvore<T>* node) 
 {
     ListNode<T>* newNode = createListNode(node);
     
@@ -41,14 +41,14 @@ void addElement(List<T>* list, Node<T>* node)
 }
 
 template <typename T>
-Node<T>* deleteElement(List<T>* list) 
+NodeArvore<T>* deleteElement(List<T>* list) 
 {
     if (list->front == nullptr) 
     {
         return nullptr;
     }
     ListNode<T>* temp = list->front;
-    Node<T>* node = temp->iPayload;
+    NodeArvore<T>* node = temp->iPayload;
     list->front = list->front->next;
     if (list->front == nullptr) 
     {
@@ -59,19 +59,19 @@ Node<T>* deleteElement(List<T>* list)
 }
 
 template <typename T>
-Node<T>* bfs(Node<T>* startingNode, T iValue) 
+NodeArvore<T>* bfs(NodeArvore<T>* startingNode, T iValue) 
 {
     if (startingNode == nullptr) 
     {
         return nullptr;
     }
 
-    List<T>* list = initializeList();
+    List<int>* list = initializeList<int>();
     addElement(list, startingNode);
 
     while (list->front != nullptr) 
     {
-        Node<T>* currentNode = deleteElement(list);
+        NodeArvore<T>* currentNode = deleteElement(list);
         if (currentNode->iPayload == iValue)
         {
             return currentNode;
@@ -87,4 +87,6 @@ Node<T>* bfs(Node<T>* startingNode, T iValue)
             addElement(list, currentNode->ptrRight);
         }
     }
+
+    return nullptr;
 }

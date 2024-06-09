@@ -3,39 +3,38 @@
 
 template <typename T>
 
-struct Node
-{
+struct NodeArvore{
   T iPayload;
   
-  Node<T>* ptrLeft;
-  Node<T>* ptrRight;
+  NodeArvore<T>* ptrLeft;
+  NodeArvore<T>* ptrRight;
 
 };
 
 #include "Arvore.tplt"
 
 template <typename T>
-Node<T>* newNode(T);
+NodeArvore<T>* newNode(T);
 
 template <typename T>
-Node<T>* insertNode(Node<T>*, T);
+NodeArvore<T>* insertNode(NodeArvore<T>*, T);
 
 template <typename T>
-Node<T>* lesserLeaf(Node<T>*);
+NodeArvore<T>* lesserLeaf(NodeArvore<T>*);
 
 template <typename T>
-Node<T>* deleteNode(Node<T>*, T);
+NodeArvore<T>* deleteNode(NodeArvore<T>*, T);
 
 template <typename T>
-void traversePreOrder(Node<T>*);
+void traversePreOrder(NodeArvore<T>*);
 
 template <typename T>
-void traverseInOrder(Node<T>*);
+void traverseInOrder(NodeArvore<T>*);
 
 template <typename T>
-void traversePostOrder(Node<T>*);
+void traversePostOrder(NodeArvore<T>*);
 
 template <typename T>
-Node<T>* geradorArvoreAleatoria(int, int);
+NodeArvore<T>* geradorArvoreAleatoria(int, int);
 
 #endif

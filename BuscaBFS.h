@@ -2,15 +2,8 @@
 #define BUSCABFS_H
 
 template <typename T>
-struct Node{
-    T iPayload;
-    Node<T>* ptrNext;
-    Node<T>* ptrPrevious;
-};
-
-template <typename T>
 struct ListNode {
-    Node<T>* iPayload;
+    NodeArvore<T>* iPayload;
     ListNode<T>* next;
 };
 
@@ -26,15 +19,15 @@ template <typename T>
 List<T>* initializeList();
 
 template <typename T>
-ListNode<T>* createListNode(Node<T>*);
+ListNode<T>* createListNode(NodeArvore<T>*);
 
 template <typename T>
-void addElement(List<T>* list, Node<T>* node);
+void addElement(List<T>*, NodeArvore<T>*);
 
 template <typename T>
-Node<T>* deleteElement(List<T>* list);
+NodeArvore<T>* deleteElement(List<T>*);
 
 template <typename T>
-Node<T>* bfs(Node<T>*, int);
+NodeArvore<T>* bfs(NodeArvore<T>*, T);
 
 #endif

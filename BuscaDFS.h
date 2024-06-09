@@ -4,6 +4,6 @@
 #include "BuscaDFS.tplt"
 
 template <typename T>
-Node<T>* searchNode(Node<T>* startingNode, T iData);
+NodeArvore<T>* searchNode(NodeArvore<T>*, T);
 
 #endif

@@ -4,9 +4,9 @@
 using namespace std;
 
 template <typename T>
-Node<T>* newNode(T iData)
+NodeArvore<T>* newNode(T iData)
 {
-    Node<T>* tmp = (Node<T>*) malloc(sizeof(Node<T>));
+    NodeArvore<T>* tmp = (NodeArvore<T>*) malloc(sizeof(NodeArvore<T>));
   
     if (tmp != nullptr)
     {
@@ -19,7 +19,7 @@ Node<T>* newNode(T iData)
 }
 
 template <typename T>
-Node<T>* insertNode(Node<T>* startingNode, T iData)
+NodeArvore<T>* insertNode(NodeArvore<T>* startingNode, T iData)
 {
     if(startingNode == nullptr)
     {
@@ -39,9 +39,9 @@ Node<T>* insertNode(Node<T>* startingNode, T iData)
 }
 
 template <typename T>
-Node<T>* lesserLeaf(Node<T>* startingNode)
+NodeArvore<T>* lesserLeaf(NodeArvore<T>* startingNode)
 {
-    Node<T>* ptrCurrent = startingNode;
+    NodeArvore<T>* ptrCurrent = startingNode;
  
     while (ptrCurrent && ptrCurrent->ptrLeft != nullptr) ptrCurrent = ptrCurrent->ptrLeft;
     
@@ -49,7 +49,7 @@ Node<T>* lesserLeaf(Node<T>* startingNode)
 }
 
 template <typename T>
-Node<T>* deleteNode(Node<T>* startingNode, T iData)
+NodeArvore<T>* deleteNode(NodeArvore<T>* startingNode, T iData)
 {
     if (startingNode == nullptr) return nullptr;
     
@@ -57,7 +57,7 @@ Node<T>* deleteNode(Node<T>* startingNode, T iData)
     else if (iData > startingNode->iPayload) startingNode->ptrRight = deleteNode(startingNode->ptrRight, iData);
     else
     {
-        Node<T>* ptrTemp = nullptr;
+        NodeArvore<T>* ptrTemp = nullptr;
         
         if (startingNode->ptrLeft == nullptr)
         {
@@ -83,7 +83,7 @@ Node<T>* deleteNode(Node<T>* startingNode, T iData)
 }
 
 template <typename T>
-void traversePreOrder(Node<T>* ptrStartingNode)
+void traversePreOrder(NodeArvore<T>* ptrStartingNode)
 {
     if (ptrStartingNode != nullptr)
     {
@@ -94,7 +94,7 @@ void traversePreOrder(Node<T>* ptrStartingNode)
 }
 
 template <typename T>
-void traverseInOrder(Node<T>* ptrStartingNode)
+void traverseInOrder(NodeArvore<T>* ptrStartingNode)
 {
     if (ptrStartingNode != nullptr)
     {
@@ -105,7 +105,7 @@ void traverseInOrder(Node<T>* ptrStartingNode)
 }
 
 template <typename T>
-void traversePostOrder(Node<T>* ptrStartingNode)
+void traversePostOrder(NodeArvore<T>* ptrStartingNode)
 {
     if (ptrStartingNode != nullptr)
     {
@@ -116,12 +116,12 @@ void traversePostOrder(Node<T>* ptrStartingNode)
 }
 
 template <typename T>
-Node<T>* geradorArvoreAleatoria(int iNumElementos, int iSeed)
+NodeArvore<T>* geradorArvoreAleatoria(int iNumElementos, int iSeed)
 {
     mt19937 gen(iSeed);
     std::uniform_int_distribution<> dis(0, 100);
     
-    Node<T>* root = nullptr;
+    NodeArvore<T>* root = nullptr;
     int iContador = 0;
     while(iContador<iNumElementos)
     {
