@@ -140,6 +140,24 @@ int main()
     }
     cout<<endl;
 
+    int arriTemposBuscaBFS[100] = {0};
+    for (int i = 0;i<100;i++)
+    {
+        Node<int>* root = geradorArvoreAleatoria(10000, i);
+        auto timeStart = chrono::high_resolution_clock::now();
+        bfs(root, i);
+        auto timeStop = chrono::high_resolution_clock::now();
+        auto timeDuration = chrono::duration_cast<chrono::nanoseconds>(timeStop - timeStart);
+        arriTemposBuscaBFS[i] = timeDuration.count();
+    }
+   
+    cout<<"Tempos BuscaBFS: ";
+    for (int i = 0;i<100;i++)
+    {
+        cout<< arriTemposBuscaBFS[i]<<", ";
+    }
+    cout<<endl;
+
     // // Gerando uma lista aleatória para mostrar Radix
     // Node<int>* head = geradorListaAleatoria(10, 12);
     
