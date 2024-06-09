@@ -1,0 +1,13 @@
+#include "Arvore.h"
+#include <iostream>
+
+using namespace std;
+
+template <typename T>
+Node<T>* searchNode(Node<T>* startingNode, T iData)
+{
+    if(startingNode == nullptr) return nullptr;
+    else if(iData == startingNode->iPayload) return startingNode;
+    else if(iData < startingNode->iPayload) return searchNode(startingNode->ptrLeft, iData);
+    else return searchNode(startingNode->ptrRight, iData);
+}
