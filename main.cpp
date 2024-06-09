@@ -15,9 +15,14 @@ using namespace std;
 int main()
 {
     int arriTemposBubble[100] = {0};
+    int arriTemposListaBubble[100] = {0};
     for (int i = 0;i<100;i++)
     {
+        auto timeStartLista = chrono::high_resolution_clock::now();
         Node<int>* head = geradorListaAleatoria<int>(10000, i);
+        auto timeStopLista = chrono::high_resolution_clock::now();
+        auto timeDurationLista = chrono::duration_cast<chrono::nanoseconds>(timeStopLista - timeStartLista);
+        arriTemposListaBubble[i] = timeDurationLista.count();
         auto timeStart = chrono::high_resolution_clock::now();
         bubbleSort(head, 10000);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -31,11 +36,23 @@ int main()
         cout<< arriTemposBubble[i]<<", ";
     }
     cout<<endl;
-    
-    int arriTemposBubbleOtimizado[100] = {0};
+
+    cout<<"Tempos gerar Lista bubbleSort: ";
     for (int i = 0;i<100;i++)
     {
+        cout<< arriTemposListaBubble[i]<<", ";
+    }
+    cout<<endl;
+    
+    int arriTemposBubbleOtimizado[100] = {0};
+    int arriTemposListaBubbleOtimizado[100] = {0};
+    for (int i = 0;i<100;i++)
+    {
+        auto timeStartLista = chrono::high_resolution_clock::now();
         Node<int>* head = geradorListaAleatoria<int>(10000, i);
+        auto timeStopLista = chrono::high_resolution_clock::now();
+        auto timeDurationLista = chrono::duration_cast<chrono::nanoseconds>(timeStopLista - timeStartLista);
+        arriTemposListaBubbleOtimizado[i] = timeDurationLista.count();
         auto timeStart = chrono::high_resolution_clock::now();
         optimizedBubbleSort(head, 10000);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -50,10 +67,22 @@ int main()
     }
     cout<<endl;
 
-    int arriTemposSelection[100] = {0};
+    cout<<"Tempos gerar Lista optimizedBubbleSort: ";
     for (int i = 0;i<100;i++)
     {
+        cout<< arriTemposListaBubbleOtimizado[i]<<", ";
+    }
+    cout<<endl;
+
+    int arriTemposSelection[100] = {0};
+    int arriTemposListaSelection[100] = {0};
+    for (int i = 0;i<100;i++)
+    {
+        auto timeStartLista = chrono::high_resolution_clock::now();
         Node<int>* head = geradorListaAleatoria<int>(10000, i);
+        auto timeStopLista = chrono::high_resolution_clock::now();
+        auto timeDurationLista = chrono::duration_cast<chrono::nanoseconds>(timeStopLista - timeStartLista);
+        arriTemposListaSelection[i] = timeDurationLista.count();
         auto timeStart = chrono::high_resolution_clock::now();
         selectionSort(head);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -67,11 +96,23 @@ int main()
         cout<< arriTemposSelection[i]<<", ";
     }
     cout<<endl;
-    
-    int arriTemposSelectionOtimizado[100] = {0};
+
+    cout<<"Tempos gerar Lista selectionSort: ";
     for (int i = 0;i<100;i++)
     {
+        cout<< arriTemposListaSelection[i]<<", ";
+    }
+    cout<<endl;
+    
+    int arriTemposSelectionOtimizado[100] = {0};
+    int arriTemposListaSelectionOtimizado[100] = {0};
+    for (int i = 0;i<100;i++)
+    {
+        auto timeStartLista = chrono::high_resolution_clock::now();
         Node<int>* head = geradorListaAleatoria<int>(10000, i);
+        auto timeStopLista = chrono::high_resolution_clock::now();
+        auto timeDurationLista = chrono::duration_cast<chrono::nanoseconds>(timeStopLista - timeStartLista);
+        arriTemposListaSelectionOtimizado[i] = timeDurationLista.count();
         auto timeStart = chrono::high_resolution_clock::now();
         optimizedSelectionSort(head);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -86,11 +127,22 @@ int main()
     }
     cout<<endl;
 
-
-    int arriTemposInsertion[100] = {0};
+    cout<<"Tempos gerar Lista optimizedSelectionSort: ";
     for (int i = 0;i<100;i++)
     {
+        cout<< arriTemposListaSelectionOtimizado[i]<<", ";
+    }
+    cout<<endl;
+
+    int arriTemposInsertion[100] = {0};
+    int arriTemposListaInsertion[100] = {0};
+    for (int i = 0;i<100;i++)
+    {
+        auto timeStartLista = chrono::high_resolution_clock::now();
         Node<int>* head = geradorListaAleatoria<int>(10000, i);
+        auto timeStopLista = chrono::high_resolution_clock::now();
+        auto timeDurationLista = chrono::duration_cast<chrono::nanoseconds>(timeStopLista - timeStartLista);
+        arriTemposListaInsertion[i] = timeDurationLista.count();
         auto timeStart = chrono::high_resolution_clock::now();
         insertionSort(head, 10000);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -104,11 +156,23 @@ int main()
         cout<< arriTemposInsertion[i]<<", ";
     }
     cout<<endl;
-    
-    int arriTemposRadix[100] = {0};
+
+    cout<<"Tempos gerar Lista insertionSort: ";
     for (int i = 0;i<100;i++)
     {
+        cout<< arriTemposListaInsertion[i]<<", ";
+    }
+    cout<<endl;
+    
+    int arriTemposRadix[100] = {0};
+    int arriTemposListaRadix[100] = {0};
+    for (int i = 0;i<100;i++)
+    {
+        auto timeStartLista = chrono::high_resolution_clock::now();
         Node<int>* head = geradorListaAleatoria<int>(10000, i);
+        auto timeStopLista = chrono::high_resolution_clock::now();
+        auto timeDurationLista = chrono::duration_cast<chrono::nanoseconds>(timeStopLista - timeStartLista);
+        arriTemposListaRadix[i] = timeDurationLista.count();
         auto timeStart = chrono::high_resolution_clock::now();
         radixSort(&head);
         auto timeStop = chrono::high_resolution_clock::now();
@@ -123,15 +187,28 @@ int main()
     }
     cout<<endl;
 
-    int arriTemposBuscaDFS[100] = {0};
+    cout<<"Tempos gerar Lista radixSort: ";
     for (int i = 0;i<100;i++)
     {
+        cout<< arriTemposListaRadix[i]<<", ";
+    }
+    cout<<endl;
+
+    int arriTemposBuscaDFS[100] = {0};
+    int arriTemposArvoreDFS[100] = {0};
+    for (int i = 0;i<100;i++)
+    {
+        auto timeStartArvore = chrono::high_resolution_clock::now();
         NodeArvore<int>* root = geradorArvoreAleatoria<int>(10000, i);
+        auto timeStopArvore = chrono::high_resolution_clock::now();
+        auto timeDurationArvore = chrono::duration_cast<chrono::nanoseconds>(timeStopArvore - timeStartArvore);
+        arriTemposArvoreDFS[i] = timeDurationArvore.count();
         auto timeStart = chrono::high_resolution_clock::now();
-        searchNode(root, i);
+        NodeArvore<int>* noEncontrado = searchNode<int>(root, 0);
         auto timeStop = chrono::high_resolution_clock::now();
         auto timeDuration = chrono::duration_cast<chrono::nanoseconds>(timeStop - timeStart);
         arriTemposBuscaDFS[i] = timeDuration.count();
+        free(root);
     }
     
     cout<<"Tempos BuscaDFS: ";
@@ -141,12 +218,24 @@ int main()
     }
     cout<<endl;
 
-    int arriTemposBuscaBFS[100] = {0};
+    cout<<"Tempos gerar Arvore DFS: ";
     for (int i = 0;i<100;i++)
     {
+        cout<< arriTemposArvoreDFS[i]<<", ";
+    }
+    cout<<endl;
+
+    int arriTemposBuscaBFS[100] = {0};
+    int arriTemposArvoreBFS[100] = {0};
+    for (int i = 0;i<100;i++)
+    {
+        auto timeStartArvore = chrono::high_resolution_clock::now();
         NodeArvore<int>* root = geradorArvoreAleatoria<int>(10000, i);
+        auto timeStopArvore = chrono::high_resolution_clock::now();
+        auto timeDurationArvore = chrono::duration_cast<chrono::nanoseconds>(timeStopArvore - timeStartArvore);
+        arriTemposArvoreBFS[i] = timeDurationArvore.count();
         auto timeStart = chrono::high_resolution_clock::now();
-        bfs(root, i);
+        NodeArvore<int>* noEncontrado = bfs<int>(root, i);
         auto timeStop = chrono::high_resolution_clock::now();
         auto timeDuration = chrono::duration_cast<chrono::nanoseconds>(timeStop - timeStart);
         arriTemposBuscaBFS[i] = timeDuration.count();
@@ -156,6 +245,13 @@ int main()
     for (int i = 0;i<100;i++)
     {
         cout<< arriTemposBuscaBFS[i]<<", ";
+    }
+    cout<<endl;
+
+    cout<<"Tempos gerar Arvore BFS: ";
+    for (int i = 0;i<100;i++)
+    {
+        cout<< arriTemposArvoreBFS[i]<<", ";
     }
     cout<<endl;
 
