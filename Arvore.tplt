@@ -1,0 +1,133 @@
+#include <iostream>
+#include <random>
+
+using namespace std;
+
+template <typename T>
+Node<T>* newNode(T iData)
+{
+    Node<T>* tmp = (Node<T>*) malloc(sizeof(Node<T>));
+  
+    if (tmp != nullptr)
+    {
+        tmp->iPayload = iData;
+        tmp->ptrLeft = nullptr;
+        tmp->ptrRight = nullptr;
+    }
+  
+    return tmp;
+}
+
+template <typename T>
+Node<T>* insertNode(Node<T>* startingNode, T iData)
+{
+    if(startingNode == nullptr)
+    {
+        return newNode(iData);
+    }
+    
+    if(iData < startingNode->iPayload)
+    {
+        startingNode->ptrLeft = insertNode(startingNode->ptrLeft, iData);
+    }
+    else
+    {
+        startingNode->ptrRight = insertNode(startingNode->ptrRight, iData);
+    }
+    
+    return startingNode;
+}
+
+template <typename T>
+Node<T>* lesserLeaf(Node<T>* startingNode)
+{
+    Node<T>* ptrCurrent = startingNode;
+ 
+    while (ptrCurrent && ptrCurrent->ptrLeft != nullptr) ptrCurrent = ptrCurrent->ptrLeft;
+    
+    return ptrCurrent;
+}
+
+template <typename T>
+Node<T>* deleteNode(Node<T>* startingNode, T iData)
+{
+    if (startingNode == nullptr) return nullptr;
+    
+    if (iData < startingNode->iPayload) startingNode->ptrLeft = deleteNode(startingNode->ptrLeft, iData);
+    else if (iData > startingNode->iPayload) startingNode->ptrRight = deleteNode(startingNode->ptrRight, iData);
+    else
+    {
+        Node<T>* ptrTemp = nullptr;
+        
+        if (startingNode->ptrLeft == nullptr)
+        {
+            ptrTemp = startingNode->ptrRight;
+            free(startingNode);
+            return ptrTemp;
+        }
+        else if (startingNode->ptrRight == nullptr)
+        {
+            ptrTemp = startingNode->ptrLeft;
+            free(startingNode);
+            return ptrTemp;            
+        }
+        
+        ptrTemp = lesserLeaf(startingNode->ptrRight);
+        
+        startingNode->iPayload = ptrTemp->iPayload;
+        
+        startingNode->ptrRight = deleteNode(startingNode->ptrRight, ptrTemp->iPayload);
+    }
+    
+    return startingNode;
+}
+
+template <typename T>
+void traversePreOrder(Node<T>* ptrStartingNode)
+{
+    if (ptrStartingNode != nullptr)
+    {
+        cout << " " << ptrStartingNode->iPayload;
+        traversePreOrder(ptrStartingNode->ptrLeft);
+        traversePreOrder(ptrStartingNode->ptrRight);
+    }
+}
+
+template <typename T>
+void traverseInOrder(Node<T>* ptrStartingNode)
+{
+    if (ptrStartingNode != nullptr)
+    {
+        traverseInOrder(ptrStartingNode->ptrLeft);
+        cout << " " << ptrStartingNode->iPayload;
+        traverseInOrder(ptrStartingNode->ptrRight);
+    }
+}
+
+template <typename T>
+void traversePostOrder(Node<T>* ptrStartingNode)
+{
+    if (ptrStartingNode != nullptr)
+    {
+        traversePostOrder(ptrStartingNode->ptrLeft);
+        traversePostOrder(ptrStartingNode->ptrRight);
+        cout << " " << ptrStartingNode->iPayload;
+    }
+}
+
+template <typename T>
+Node<T>* geradorArvoreAleatoria(int iNumElementos, int iSeed)
+{
+    mt19937 gen(iSeed);
+    std::uniform_int_distribution<> dis(0, 100);
+    
+    Node<T>* root = nullptr;
+    int iContador = 0;
+    while(iContador<iNumElementos)
+    {
+        int random_num = dis(gen);
+        root = insertNode(root, random_num);
+        iContador++;
+    }
+    return root;
+}
